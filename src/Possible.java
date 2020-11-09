@@ -6,11 +6,18 @@ public class Possible
     Board node;
     ArrayList<Possible> branches;
     char win;
+    int turn;
 
-    public Possible(Board in)
+    public Possible(Board in, int turnin)
     {
+        turn = turnin;
         node = in;
         branches = new ArrayList<Possible>();
+        //node.printAll();
+        //System.out.println("Turn: " + turn);
+        //System.out.println("Winner: " + node.won());
+        //System.out.println();
+
         ArrayList<Board> possibilities = new ArrayList<Board>();
 
         if (node.won() == '.')
@@ -27,7 +34,7 @@ public class Possible
 
             for (int i = 0; i < possibilities.size(); i++)
             {
-                branches.add(new Possible(possibilities.get(i)));
+                branches.add(new Possible(possibilities.get(i), turn + 1));
             }
         }
         else
@@ -51,5 +58,15 @@ public class Possible
             }
             return total;
         }
+    }
+
+    public boolean isWin(char in)
+    {
+        return (win == in);
+    }
+
+    public int getWins(char check)
+    {
+        if ()
     }
 }
