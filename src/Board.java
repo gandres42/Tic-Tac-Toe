@@ -3,6 +3,9 @@ public class Board
     char[] board;
     char player;
 
+    /***
+     * Creates a new, empty board
+     */
     public Board()
     {
         board = new char[9];
@@ -13,6 +16,11 @@ public class Board
         player = 'x';
     }
 
+    /***
+     * Creates a board using a character array passed in and a current player.
+     * @param in
+     * @param player
+     */
     public Board(char[] in, char player)
     {
         board = new char[9];
@@ -23,24 +31,28 @@ public class Board
         this.player = player;
     }
 
-    public void setBoard(char[] in)
-    {
-        for (int i = 0; i < board.length; i++)
-        {
-            board[i] = in[i];
-        }
-    }
-
+    /***
+     * Gets the current array representing the board
+     * @return character array of the board
+     */
     public char[] getBoard()
     {
         return board;
     }
 
+    /***
+     * Gets the current player
+     * @return character representing current player turn
+     */
     public char getPlayer()
     {
         return player;
     }
 
+    /***
+     * Updates given index in the array with the current players turn, then toggles the player to prepare for the next turn
+     * @param i index to update
+     */
     public void play(int i)
     {
         board[i] = player;
@@ -54,6 +66,10 @@ public class Board
         }
     }
 
+    /***
+     * Checks if there is a winner or a cats game
+     * @return character 'x' or 'o' for each player, if no winner '.' and if cats game 'c';
+     */
     public char won()
     {
         //Checks for vertical
@@ -101,9 +117,27 @@ public class Board
             }
         }
 
+        //checks for cats game
+        boolean cats = true;
+        for (int i = 0; i < 9; i++)
+        {
+            if (board[i] == '.')
+            {
+                cats = false;
+            }
+        }
+        if (cats)
+        {
+            return 'c';
+        }
+
+        //only returns if game is in progress, with no winner
         return '.';
     }
 
+    /**
+     * A method which directly prints the board to console with a nice little gui
+     */
     public void printAll()
     {
 
@@ -116,4 +150,18 @@ public class Board
 
     }
 
+    /***
+     * Similar to play, this method toggles the character, but does not update the board in any way.
+     */
+    public void changePlayer()
+    {
+        if (player == 'x')
+        {
+            player = 'o';
+        }
+        else if (player == 'o')
+        {
+            player = 'x';
+        }
+    }
 }
