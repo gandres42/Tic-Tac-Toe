@@ -164,4 +164,17 @@ public class Board
             player = 'x';
         }
     }
+
+    public int getTurn()
+    {
+        int filled = 0;
+        for (int i = 0; i < 9; i++)
+        {
+            if (board[i] != '.')
+            {
+                filled++;
+            }
+        }
+        return filled;
+    }
 }

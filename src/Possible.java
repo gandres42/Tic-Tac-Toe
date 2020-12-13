@@ -1,5 +1,3 @@
-import javax.swing.*;
-import java.sql.PseudoColumnUsage;
 import java.util.ArrayList;
 
 /***
@@ -81,9 +79,13 @@ public class Possible
             {
                 return 1;
             }
-            else
+            else if (node.won() == 'c')
             {
                 return 0;
+            }
+            else
+            {
+                return -1;
             }
         }
         else

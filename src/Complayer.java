@@ -36,7 +36,7 @@ public class Complayer
                 Board boardPlay = new Board(in.getBoard(), in.getPlayer());
                 boardPlay.play(i);
                 Possible opportunity = new Possible(boardPlay);
-                probablities[i] = (double)opportunity.getWon(player) / (double)opportunity.getTotal();
+                probablities[i] = opportunity.getWon(player);
             }
             else
             {
@@ -49,6 +49,7 @@ public class Complayer
         Random rand = new Random();
         for (int i = 0; i < probablities.length; i++)
         {
+            System.out.print(probablities[i] + " ");
             if (probablities[i] != -1 && probablities[i] >= maxVal)
             {
                 if (probablities[i] > maxVal)
@@ -65,6 +66,7 @@ public class Complayer
                 }
             }
         }
+        System.out.println();
         return indexReturn;
     }
 }
