@@ -16,17 +16,14 @@ public class Complayer
     {
         double[] probablities = new double[9];
 
-        for (int i = 0; i < 9; i++)
-        {
+        /*for (int i = 0; i < 9; i++) {
             Board checkWin = new Board(in.getBoard(), in.getPlayer());
             checkWin.changePlayer();
             checkWin.play(i);
-            if (checkWin.won() != '.' && checkWin.won() != in.getPlayer() && in.getBoard()[i] == '.')
-            {
+            if (checkWin.won() != '.' && checkWin.won() != in.getPlayer() && in.getBoard()[i] == '.') {
                 return i;
             }
-        }
-        System.out.println();
+        }*/
 
         for (int i = 0; i < in.getBoard().length; i++)
         {
@@ -45,7 +42,7 @@ public class Complayer
         }
 
         int indexReturn = -1;
-        double maxVal = probablities[0];
+        double maxVal = -1 * Double.MAX_VALUE;
         Random rand = new Random();
         for (int i = 0; i < probablities.length; i++)
         {

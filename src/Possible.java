@@ -9,7 +9,6 @@ public class Possible
     Board node;
     ArrayList<Possible> branches;
     char win;
-    //int turn;
 
     /***
      * When constructed, a possibility contains the board passed into it, then recursively fills an array of Possible objects representing all possible boards that can be accessed in a move from the node board.
@@ -18,8 +17,7 @@ public class Possible
     public Possible(Board in)
     {
         node = in;
-        branches = new ArrayList<Possible>();
-        ArrayList<Board> possibilities = new ArrayList<Board>();
+        branches = new ArrayList<>();
 
         if (node.won() == '.')
         {
@@ -28,14 +26,10 @@ public class Possible
             {
                 if (node.getBoard()[i] == '.')
                 {
-                    possibilities.add(new Board(node.getBoard(), node.getPlayer()));
-                    possibilities.get(possibilities.size() - 1).play(i);
+                    Board temp = new Board(node.getBoard(), node.getPlayer());
+                    temp.play(i);
+                    branches.add(new Possible(temp));
                 }
-            }
-
-            for (int i = 0; i < possibilities.size(); i++)
-            {
-                branches.add(new Possible(possibilities.get(i)));
             }
         }
         else
@@ -75,11 +69,11 @@ public class Possible
         if (branches.size() == 0)
         {
 
-            if (node.won() == player)
+            if (win == player)
             {
                 return 1;
             }
-            else if (node.won() == 'c')
+            else if (win == 'c')
             {
                 return 0;
             }

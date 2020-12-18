@@ -55,7 +55,9 @@ public class Driver {
             game.printAll();
             System.out.println();
         }
+
         game.printAll();
+
         if (game.won() == 'c')
         {
             System.out.println("Winner: none");
