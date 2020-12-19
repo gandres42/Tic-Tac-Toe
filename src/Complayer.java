@@ -15,16 +15,31 @@ public class Complayer
     public int getPlayIndex(Board in)
     {
         double[] probablities = new double[9];
+        double[] tieBreaker = new double[9];
 
-        /*for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 9; i++) {
             Board checkWin = new Board(in.getBoard(), in.getPlayer());
             checkWin.changePlayer();
             checkWin.play(i);
             if (checkWin.won() != '.' && checkWin.won() != in.getPlayer() && in.getBoard()[i] == '.') {
+                System.out.println("emergency: " + i);
                 return i;
             }
-        }*/
+        }
 
+        for (int i = 0; i < 9; i++) {
+            Board checkWin = new Board(in.getBoard(), in.getPlayer());
+            checkWin.changePlayer();
+            checkWin.play(i);
+            if (checkWin.won() != '.' && checkWin.won() != in.getPlayer() && in.getBoard()[i] == '.') {
+                System.out.println("emergency: " + i);
+                return i;
+            }
+        }
+
+        /**
+         * Generates probability scores using Possible object
+         */
         for (int i = 0; i < in.getBoard().length; i++)
         {
             if (in.getBoard()[i] == '.')
@@ -34,16 +49,21 @@ public class Complayer
                 boardPlay.play(i);
                 Possible opportunity = new Possible(boardPlay);
                 probablities[i] = opportunity.getWon(player);
+                tieBreaker[i] = opportunity.getLost(player);
             }
             else
             {
                 probablities[i] = -1;
+                tieBreaker[i] = -1;
             }
         }
 
+        /**
+         * Finds best possibility from array of possibility scores
+         */
         int indexReturn = -1;
         double maxVal = -1 * Double.MAX_VALUE;
-        Random rand = new Random();
+
         for (int i = 0; i < probablities.length; i++)
         {
             System.out.print(probablities[i] + " ");
@@ -54,14 +74,12 @@ public class Complayer
                     maxVal = probablities[i];
                     indexReturn = i;
                 }
-                else if (probablities[i] == maxVal)
-                {
-                    if (rand.nextBoolean() || i == 0) {
-                        indexReturn = i;
-                    }
-
-                }
             }
+        }
+        System.out.println();
+        for (int i = 0; i < tieBreaker.length; i++)
+        {
+            System.out.print(tieBreaker[i] + " ");
         }
         System.out.println();
         return indexReturn;

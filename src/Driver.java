@@ -9,8 +9,10 @@ public class Driver {
         Complayer joshua = new Complayer();
         Scanner inout = new Scanner(System.in);
 
-        System.out.println("Enter number of players");
-        int players = inout.nextInt();
+        //System.out.println("Enter number of players");
+        //int players = inout.nextInt();
+
+        int players = 1;
 
         game.printAll();
 

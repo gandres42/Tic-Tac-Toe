@@ -105,7 +105,7 @@ public class Board
         }
 
         //Checks horizontals
-        for (int i = 0; i < 6; i += 3)
+        for (int i = 0; i <= 6; i += 3)
         {
             if (board[i] == 'x' && board[i + 1] == 'x' && board[i + 2] == 'x')
             {
@@ -163,5 +163,18 @@ public class Board
         {
             player = 'x';
         }
+    }
+
+    public int getOpenSpaces()
+    {
+        int open = 0;
+        for (int i = 0; i < board.length; i++)
+        {
+            if (board[i] == '.')
+            {
+                open++;
+            }
+        }
+        return open;
     }
 }

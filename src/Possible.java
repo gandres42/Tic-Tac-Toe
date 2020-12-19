@@ -73,14 +73,11 @@ public class Possible
             {
                 return 1;
             }
-            else if (win == 'c')
+            else if (win != 'c')
             {
                 return 0;
             }
-            else
-            {
-                return -1;
-            }
+            return 0;
         }
         else
         {
@@ -88,6 +85,32 @@ public class Possible
             for (int i = 0; i < branches.size(); i++)
             {
                 total += branches.get(i).getWon(player);
+            }
+            return total;
+        }
+    }
+
+    public int getLost(char player)
+    {
+        if (branches.size() == 0)
+        {
+
+            if (win == player)
+            {
+                return 0;
+            }
+            else if (win != 'c')
+            {
+                return -1;
+            }
+            return 0;
+        }
+        else
+        {
+            int total = 0;
+            for (int i = 0; i < branches.size(); i++)
+            {
+                total += branches.get(i).getLost(player);
             }
             return total;
         }
