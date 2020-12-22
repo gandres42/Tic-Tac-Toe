@@ -1,10 +1,14 @@
 import java.util.Random;
 
+/***
+ * @author Gavin Andres
+ * Class to determine the best move using the Minimax algorithm, independent of player, simply takes a board and player turn and finds a best move, means only one is needed.
+ */
 public class Complayer
 {
     public Complayer()
     {
-
+        //Does nothing
     }
 
     /***
@@ -14,31 +18,10 @@ public class Complayer
      */
     public int getPlayIndex(Board in)
     {
-        double[] probablities = new double[9];
-        double[] tieBreaker = new double[9];
-
-        for (int i = 0; i < 9; i++) {
-            Board checkWin = new Board(in.getBoard(), in.getPlayer());
-            checkWin.changePlayer();
-            checkWin.play(i);
-            if (checkWin.won() != '.' && checkWin.won() != in.getPlayer() && in.getBoard()[i] == '.') {
-                System.out.println("emergency: " + i);
-                return i;
-            }
-        }
-
-        for (int i = 0; i < 9; i++) {
-            Board checkWin = new Board(in.getBoard(), in.getPlayer());
-            checkWin.changePlayer();
-            checkWin.play(i);
-            if (checkWin.won() != '.' && checkWin.won() != in.getPlayer() && in.getBoard()[i] == '.') {
-                System.out.println("emergency: " + i);
-                return i;
-            }
-        }
+        Integer[] probablities = new Integer[9];
 
         /**
-         * Generates probability scores using Possible object
+         * Generates scores for all options using Possible object with first node at the current game board
          */
         for (int i = 0; i < in.getBoard().length; i++)
         {
@@ -48,40 +31,38 @@ public class Complayer
                 Board boardPlay = new Board(in.getBoard(), in.getPlayer());
                 boardPlay.play(i);
                 Possible opportunity = new Possible(boardPlay);
-                probablities[i] = opportunity.getWon(player);
-                tieBreaker[i] = opportunity.getLost(player);
+                probablities[i] = opportunity.getScore(player);
             }
             else
             {
-                probablities[i] = -1;
-                tieBreaker[i] = -1;
+                probablities[i] = null;
             }
         }
+        System.out.println();
 
         /**
-         * Finds best possibility from array of possibility scores
+         * Finds best possibility from array of possibility scores, if there are multiple optimal plays, one is randomly chosen
          */
         int indexReturn = -1;
         double maxVal = -1 * Double.MAX_VALUE;
+        Random rand = new Random();
 
         for (int i = 0; i < probablities.length; i++)
         {
-            System.out.print(probablities[i] + " ");
-            if (probablities[i] != -1 && probablities[i] >= maxVal)
+            if (probablities[i] != null && probablities[i] >= maxVal)
             {
                 if (probablities[i] > maxVal)
                 {
                     maxVal = probablities[i];
                     indexReturn = i;
                 }
+                else if (probablities[i] == maxVal && rand.nextBoolean())
+                {
+                    indexReturn = i;
+                }
             }
         }
-        System.out.println();
-        for (int i = 0; i < tieBreaker.length; i++)
-        {
-            System.out.print(tieBreaker[i] + " ");
-        }
-        System.out.println();
+
         return indexReturn;
     }
 }

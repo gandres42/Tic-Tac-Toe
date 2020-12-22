@@ -53,16 +53,24 @@ public class Board
      * Updates given index in the array with the current players turn, then toggles the player to prepare for the next turn
      * @param i index to update
      */
-    public void play(int i)
+    public boolean play(int i)
     {
-        board[i] = player;
-        if (player == 'x')
+        if (board[i] == '.')
         {
-            player = 'o';
+            board[i] = player;
+            if (player == 'x')
+            {
+                player = 'o';
+            }
+            else if (player == 'o')
+            {
+                player = 'x';
+            }
+            return true;
         }
-        else if (player == 'o')
+        else
         {
-            player = 'x';
+            return false;
         }
     }
 
@@ -148,33 +156,5 @@ public class Board
         System.out.println(" " + board[6] + " | " + board[7] + " | " + board[8] + " ");
 
 
-    }
-
-    /***
-     * Similar to play, this method toggles the character, but does not update the board in any way.
-     */
-    public void changePlayer()
-    {
-        if (player == 'x')
-        {
-            player = 'o';
-        }
-        else if (player == 'o')
-        {
-            player = 'x';
-        }
-    }
-
-    public int getOpenSpaces()
-    {
-        int open = 0;
-        for (int i = 0; i < board.length; i++)
-        {
-            if (board[i] == '.')
-            {
-                open++;
-            }
-        }
-        return open;
     }
 }

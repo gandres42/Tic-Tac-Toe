@@ -39,80 +39,50 @@ public class Possible
     }
 
     /***
-     * Finds the total numbers of possible boards based on the node board of this object
-     * @return number of total possible boards
+     * Recursive method using the Minimax algorithm to find the minimax score starting at the parent node board
+     * @param player
+     * @return
      */
-    public int getTotal()
+    public int getScore(char player)
     {
         if (branches.size() == 0)
         {
-            return 1;
-        }
-        else
-        {
-            int total = 0;
-            for (int i = 0; i < branches.size(); i++)
-            {
-                total += branches.get(i).getTotal();
-            }
-            return total;
-        }
-    }
-
-    /***
-     * Gets total number of wins for given player in all possibilities of this board
-     * @param player character representation of player to check for
-     * @return int number of total possible wins
-     */
-    public int getWon(char player)
-    {
-        if (branches.size() == 0)
-        {
-
             if (win == player)
             {
                 return 1;
             }
-            else if (win != 'c')
+            else if (win == 'c')
             {
                 return 0;
             }
-            return 0;
+            return -1;
         }
         else
         {
-            int total = 0;
-            for (int i = 0; i < branches.size(); i++)
+            if (node.getPlayer() == player)
             {
-                total += branches.get(i).getWon(player);
+                int max = branches.get(0).getScore(player);
+                for (int i = 0; i < branches.size(); i++)
+                {
+                    if (max < branches.get(i).getScore(player))
+                    {
+                        max = branches.get(i).getScore(player);
+                    }
+                }
+                return max;
             }
-            return total;
-        }
-    }
-
-    public int getLost(char player)
-    {
-        if (branches.size() == 0)
-        {
-
-            if (win == player)
+            else
             {
-                return 0;
+                int min = branches.get(0).getScore(player);
+                for (int i = 0; i < branches.size(); i++)
+                {
+                    if (min > branches.get(i).getScore(player))
+                    {
+                        min = branches.get(i).getScore(player);
+                    }
+                }
+                return min;
             }
-            else if (win != 'c')
-            {
-                return -1;
-            }
-            return 0;
-        }
-        else
-        {
-            int total = 0;
-            for (int i = 0; i < branches.size(); i++)
-            {
-                total += branches.get(i).getLost(player);
-            }
-            return total;
         }
     }
 }
