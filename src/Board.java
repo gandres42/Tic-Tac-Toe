@@ -149,12 +149,23 @@ public class Board
     public void printAll()
     {
 
-        System.out.println(" " + board[0] + " | " + board[1] + " | " + board[2] + " ");
+        char[] printBoard = new char[9];
+        for (int i = 0; i < board.length; i++)
+        {
+            if (board[i] == '.')
+            {
+                //printBoard[i] = Character.forDigit(i + 1, 10);
+                printBoard[i] = ' ';
+            }
+            else
+            {
+                printBoard[i] = board[i];
+            }
+        }
+        System.out.println(" " + printBoard[0] + " | " + printBoard[1] + " | " + printBoard[2] + " ");
         System.out.println("---|---|---");
-        System.out.println(" " + board[3] + " | " + board[4] + " | " + board[5] + " ");
+        System.out.println(" " + printBoard[3] + " | " + printBoard[4] + " | " + printBoard[5] + " ");
         System.out.println("---|---|---");
-        System.out.println(" " + board[6] + " | " + board[7] + " | " + board[8] + " ");
-
-
+        System.out.println(" " + printBoard[6] + " | " + printBoard[7] + " | " + printBoard[8] + " ");
     }
 }
